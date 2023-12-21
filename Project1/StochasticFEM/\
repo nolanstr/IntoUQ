@@ -82,15 +82,15 @@ def run_model(E, nu, filename):
             "displacements":displacements,
             "E":E,
             "nu":nu}
-    FILE = open(f"model_outputs/{filename}.pkl", "wb")
-    pickle.dump(data, FILE)
+    FILE = open(filename, "rb")
+    pickle.dump(FILE, data)
     FILE.close()
     #vtk_path = os.path.join(data_dir, 'vtk/u.vtu')
     #save_sol(problem.fes[0], sol_list[0], vtk_path)
 
 
 if __name__ == "__main__":
-    CV = 0.1
+    CV = 0.01
     E_mu = 70e3
     nu_mu = 0.3
     E_dist = norm(loc=E_mu, scale=CV * E_mu)
