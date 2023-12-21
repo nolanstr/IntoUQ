@@ -44,7 +44,7 @@ def run_model(E, nu, filename):
     cell_type = get_meshio_cell_type(ele_type)
     data_dir = os.path.join(os.path.dirname(__file__), 'data')
     Lx, Ly, Lz = 10., 2., 2.
-    Nx, Ny, Nz = 3, 2, 3
+    Nx, Ny, Nz = 10, 2, 3
     meshio_mesh = box_mesh(Nx=Nx,
                            Ny=Ny,
                            Nz=Nz,
@@ -96,7 +96,7 @@ if __name__ == "__main__":
     E_dist = norm(loc=E_mu, scale=CV * E_mu)
     nu_dist = norm(loc=nu_mu, scale=CV * nu_mu)
 
-    N = 100
+    N = 1000
     data = []
     for i in tqdm(range(N), total=N):
         E = E_dist.rvs()
