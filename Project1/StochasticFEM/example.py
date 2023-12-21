@@ -35,7 +35,7 @@ ele_type = 'TET10'
 cell_type = get_meshio_cell_type(ele_type)
 data_dir = os.path.join(os.path.dirname(__file__), 'data')
 Lx, Ly, Lz = 10., 2., 2.
-Nx, Ny, Nz = 25, 5, 5
+Nx, Ny, Nz = 5, 5, 5
 meshio_mesh = box_mesh(Nx=Nx,
                        Ny=Ny,
                        Nz=Nz,
