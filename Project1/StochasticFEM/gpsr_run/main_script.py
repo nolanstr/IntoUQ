@@ -41,9 +41,9 @@ FIT_THRESH = -np.inf
 CHECK_FREQ = 500
 MIN_GEN = 500
 
-def get_training_data(N=10, ND=20):
+def get_training_data(N=100, ND=25):
     
-    runs = np.random.choice(np.arange(1, 101), N, replace=False)
+    runs = np.random.choice(np.arange(1, 1001), N, replace=False)
     X, y = [], []
     for run in runs:
         tag = str(run).zfill(3)
