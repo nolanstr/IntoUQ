@@ -43,36 +43,11 @@ MIN_GEN = 500
 
 def get_training_data(N=200, ND=15):
     
-    runs = np.random.choice(np.arange(1, 1001), N, replace=False)
     X, y = [], []
-    for run in runs:
-        tag = str(run).zfill(3)
-        FILE = open(f"../model_outputs/output_{tag}.pkl", "rb")
-        data = pickle.load(FILE)
-        FILE.close()
-        displacements = data["displacements"]
-        coords = data["coords"]
-        idxs1 = np.argwhere(coords[:,1]==0)
-        coords = coords[idxs1.flatten(),:]
-        displacements = displacements[idxs1.flatten(),:]
-        idxs2 = np.argwhere(coords[:,1]==0)
-        coords = coords[idxs2.flatten(),:]
-        displacements = displacements[idxs2.flatten(), :]
-        E = data["E"]
-        nu = data["nu"]
-        idxs = np.random.choice(np.arange(coords.shape[0]), ND, replace=False)
-        _disps_z = displacements[idxs,-1].reshape((-1,1))
-        _coords = coords[idxs, 0].reshape((-1,1))
-        E = np.full((ND, 1), E)
-        nu = np.full((ND, 1), nu)
-        
-        _X = np.hstack((_coords, E, nu))
-        _y = _disps_z
-        X.append(_X)
-        y.append(_y)
-    X = np.vstack(X)
-    y = np.vstack(y)
-    training_data = ExplicitTrainingData(x=X, y=y)
+    X = np.load("../data_X.npy")
+    y = np.load("../data_y.npy")
+    idxs = np.random.choice(np.arange(X.shape[0]), N*ND)
+    training_data = ExplicitTrainingData(x=X[idxs,:], y=y[idxs,:].reshape((-1,1)))
 
     return training_data
 

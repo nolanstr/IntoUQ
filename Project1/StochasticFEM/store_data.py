@@ -34,6 +34,7 @@ def get_data():
         y.append(_y)
     X = np.vstack(X)
     y = np.concatenate(y).reshape((-1,1))
+    plt.scatter(X[:,0].flatten(), y.flatten())
     plt.show()
     return X, y
 
