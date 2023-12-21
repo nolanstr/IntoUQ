@@ -52,8 +52,12 @@ def get_training_data(N=200, ND=15):
         FILE.close()
         displacements = data["displacements"]
         coords = data["coords"]
-        coords = coords[np.argwhere(coords[:,1]==0).flatten(),:]
-        coords = coords[np.argwhere(coords[:,2]==0).flatten(),:]
+        idxs1 = np.argwhere(coords[:,1]==0)
+        coords = coords[idxs1.flatten(),:]
+        displacements = displacements[idxs1.flatten(),:]
+        idxs2 = np.argwhere(coords[:,1]==0)
+        coords = coords[idxs2.flatten(),:]
+        displacements = displacements[idxs2.flatten(), :]
         E = data["E"]
         nu = data["nu"]
         idxs = np.random.choice(np.arange(coords.shape[0]), ND, replace=False)
