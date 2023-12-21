@@ -27,7 +27,7 @@ class CustomCLO(ContinuousLocalOptimization):
             self._optimize_params(individual)
         f, df_dx = individual.evaluate_equation_with_x_gradient_at(
                                                 self.training_data.x)
-        monotonic_in_X = np.all((df_dx[1:,0] - df_dx[0:-1,0])>=0)
+        monotonic_in_X = np.all((f[1:,0] - f[0:-1,0])<=0)
         negative_f = np.all(f<=0)
         if monotonic_in_X and negative_f:
             return self._evaluate_fitness(individual)
@@ -35,7 +35,7 @@ class CustomCLO(ContinuousLocalOptimization):
             return np.nan
 
 POP_SIZE = 100
-STACK_SIZE = 48
+STACK_SIZE = 32
 MAX_GEN = 5000
 FIT_THRESH = -np.inf
 CHECK_FREQ = 500
@@ -48,6 +48,8 @@ def get_training_data(N=200, ND=15):
     y = np.load("../data_y.npy")
     idxs = np.random.choice(np.arange(X.shape[0]), N*ND)
     training_data = ExplicitTrainingData(x=X[idxs,:], y=y[idxs,:].reshape((-1,1)))
+    print(X[idxs,:].shape)
+    print(y[idxs,:].shape)
 
     return training_data
 
